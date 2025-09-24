@@ -15,21 +15,35 @@ while True:
         
     match choice:
         case 1: 
-            name = input("Enter item name: ")
-            quantity = int(input("Enter quantity: "))
-            price = float(input("Enter price per item: "))
+            name = input("Enter item name: ") # name of the product
+            
+            try:
+                quantity = int(input("Enter quantity: ")) # quantity of the product
+                price = float(input("Enter price per item: ")) # price per item
+            except ValueError:
+                print("Value must be a number") # Wrong Input
+                continue
 
-            newItem = items.append((name, quantity, price))
+            items.append((name, quantity, price)) # Append to items in tuples format
             continue
         case 2: 
-            for x in range(0, len(items)):
+            if not items:
+                print("no items on cart")
+                continue
+            
+            for x in range(0, len(items)): # print item in range 0-items length 
                 print(f"Item: {x+1}. {items[x]}")
             continue
         case 3:
-            totalCost = 0
-            for i in items:
-                totalCostPerItem = float(i[1]) * i[2]
-                totalCost += totalCostPerItem
+            totalCost = 0 # total cost placeholder
+            
+            if not items:
+                print("no items on cart")
+                continue
+            
+            for i in items: # loop items
+                totalCostPerItem = float(i[1]) * i[2] # multiply quantity per item
+                totalCost += totalCostPerItem # Add total cost per item in total cost
                 
             print(f"Total Cost: {totalCost}")
             continue
