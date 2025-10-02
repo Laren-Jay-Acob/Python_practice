@@ -15,12 +15,12 @@ def handleBorrowBook(bookName, name):
         # find the right book
         if bookName == book[0]:
             if not book[3]:  # check if not borrowed
-                if name in members:  # check if member exists
-                    book[3] = True
-                    book[4] = name
-                    print(f"Book '{bookName}' successfully borrowed by {name}.")
-                else:
-                    print("Member does not exist.")
+                for member in members:
+                    if name in member[1]:  # check if member exists
+                        book[3] = True
+                        book[4] = name
+                        print(f"Book '{bookName}' successfully borrowed by {name}.")
+                        print(books)
             else:
                 print(f"Book '{bookName}' is already borrowed.")
             return  # stop after handling this book
@@ -32,8 +32,7 @@ def handleBorrowBook(bookName, name):
 def handleReturningBook(bookName):
     for book in books:
         if bookName not in book[0]:
-            print(f"Cannot find {bookName} in Library.")
-            return
+            continue
         
     if book[3]:
       book[3] = False
@@ -95,7 +94,7 @@ while True:
                 for i in range(0, amount_book_to_add):
                     print(f"\nAdd book {i+1}/{amount_book_to_add}")
                     # Add Title, Author, Year Published
-                    title = input("Enter title: ").capitalize()
+                    title = input("Enter title: ")
                     author = input("Enter author: ")
                     year_published = int(input("Enter year published: "))
                     
@@ -163,7 +162,7 @@ while True:
                 print("Please enter a valid input.")
                 
             for i in range(0,amount_book_to_remove):
-                    book_title = input("Enter book title to remove: ").capitalize()
+                    book_title = input("Enter book title to remove: ")
                     
                     removeBook(bookName=book_title)
                     continue
